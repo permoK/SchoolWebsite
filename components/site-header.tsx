@@ -9,21 +9,32 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MovingGradient } from "@/components/moving-gradient"
 import { cn } from "@/lib/utils"
+import { client } from "@/lib/sanity"
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Programs", href: "/programs" },
-  { name: "Admissions", href: "/admissions" },
-  { name: "News & Events", href: "/news" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
-]
+interface NavItem {
+  _key: string
+  title: string
+  href: string
+}
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const [navigation, setNavigation] = useState<NavItem[]>([])
+
+  useEffect(() => {
+    const fetchNavigation = async () => {
+      try {
+        const data = await client.fetch(`*[_type == "navigation"][0].mainNav`)
+        setNavigation(data || [])
+        console.log("Navigation data: ", data)
+      } catch (error) {
+        console.error("Error fetching navigation:", error)
+      }
+    }
+    fetchNavigation()
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,14 +68,14 @@ export function SiteHeader() {
         <nav className="hidden md:flex items-center space-x-6">
           {navigation.map((item) => (
             <Link
-              key={item.name}
+              key={item._key || item.title}
               href={item.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary",
                 pathname === item.href ? "text-primary" : "text-muted-foreground",
               )}
             >
-              {item.name}
+              {item.title}
             </Link>
           ))}
           <Link href="/portal" className="ml-2">
@@ -96,14 +107,14 @@ export function SiteHeader() {
           <div className="container py-4 space-y-2 relative z-10">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item._key || item.title}
                 href={item.href}
                 className={cn(
                   "block py-2 text-sm font-medium transition-colors hover:text-primary",
                   pathname === item.href ? "text-primary" : "text-muted-foreground",
                 )}
               >
-                {item.name}
+                {item.title}
               </Link>
             ))}
             <div className="pt-2">
