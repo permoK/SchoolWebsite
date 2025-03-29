@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 24 96% 62%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 186 100% 36%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Modern & Engaging (Vibrant & Youthful) Dark Theme */
+    --background: 220 13% 16%; /* #222831 */
+    --foreground: 0 0% 93%; /* #EEEEEE */
+
+    --card: 220 13% 16%;
+    --card-foreground: 0 0% 93%;
+
+    --popover: 220 13% 16%;
+    --popover-foreground: 0 0% 93%;
+
+    --primary: 220 13% 16%; /* #222831 - Charcoal Black */
+    --primary-foreground: 0 0% 93%; /* #EEEEEE - Light Gray */
+
+    --secondary: 17 100% 62%; /* #FF6F3C - Soft Orange */
+    --secondary-foreground: 220 13% 16%;
+
+    --accent: 186 100% 36%; /* #00ADB5 - Neon Cyan */
+    --accent-foreground: 220 13% 16%;
+
+    --muted: 220 13% 23%;
+    --muted-foreground: 0 0% 80%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 25%;
+    --input: 220 13% 25%;
+    --ring: 186 100% 36%; /* Neon Cyan */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Carousel Styles */
+.program-carousel .swiper-pagination-bullet {
+  @apply bg-accent/50 dark:bg-accent/50;
+}
+
+.program-carousel .swiper-pagination-bullet-active {
+  @apply bg-accent dark:bg-accent;
+}
+
+.program-carousel .swiper-button-next,
+.program-carousel .swiper-button-prev {
+  @apply text-accent dark:text-accent;
+}
+
