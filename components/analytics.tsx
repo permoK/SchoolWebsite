@@ -1,14 +1,14 @@
 "use client"
 
 import { useEffect } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export function Analytics() {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "")
+    // For static export, we'll just use the pathname without search params
+    const url = pathname
 
     // Example analytics tracking
     console.log(`Page view: ${url}`)
@@ -20,7 +20,7 @@ export function Analytics() {
     //     page_path: url,
     //   })
     // }
-  }, [pathname, searchParams])
+  }, [pathname])
 
   return null
 }
